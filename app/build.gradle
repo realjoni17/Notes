@@ -1,8 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id("com.google.dagger.hilt.android")
+    id 'kotlin-kapt'
 }
-
+kapt {
+    correctErrorTypes = true
+}
 android {
     namespace 'com.jauni.todoapp'
     compileSdk 32
@@ -68,5 +72,6 @@ dependencies {
     testImplementation("androidx.room:room-testing:$room_version")
 
     //Dependcies Injections
-
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
 }
