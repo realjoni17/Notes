@@ -1,7 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
 package com.jauni.todoapp.presentation
-
+import android.nfc.Tag
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,32 +15,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import kotlin.math.log
 
-class HomeScreen {
-    @Composable
-    fun HomeScreen(){
-        Scaffold() {
-            LazyColumn{
-                items(3){
-                    Text(text="test")
-                }
-                item {
-                    Box(modifier = Modifier.fillMaxWidth()){
-                        Button(
-                            modifier =Modifier.align(Alignment.Center),
-                            onClick = {}) {
-                                Text(text = "add note")
-                            }
-                            }
-                        }
-                    }
-                }
+@Composable
+fun HomeScreen() {
+       LazyColumn(modifier = Modifier.fillMaxWidth()) {
+            items(3) {
+                Text(text = "test")
             }
+           item{
+               Box(modifier = Modifier.fillMaxWidth()){
+                   Button(modifier = Modifier.align(Alignment.Center),
+                       onClick = { /*TODO*/ }) {
+                       Text(text = "Add Note")
+                   }
+               }
+           }
         }
+    }
+
 @Preview
 @Composable
 fun PreviewHomeScreen(){
-    HomeScreen()
+   HomeScreen()
 }
 
 
