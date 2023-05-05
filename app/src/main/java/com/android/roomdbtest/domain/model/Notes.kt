@@ -8,13 +8,8 @@ data class Note(
     @PrimaryKey val id: Int? = null,
     val title: String,
     val content: String,
-    val timestamp: Long,
-    val color: Int
-)
-{
-    companion object {
+    //val timestamp: Long,
 
-        val noteColors = listOf("")
-    }
-}
+)
+
 class InvalidNoteException(message: String) : Exception(message)
