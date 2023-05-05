@@ -24,7 +24,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideNoteRepository(database: NoteDatabase): NoteRepository = NoteRepositoryImpl(
-        database.noteDao
+        database.noteDao()
     )
 
     @Singleton

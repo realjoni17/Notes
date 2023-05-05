@@ -1,20 +1,32 @@
 package com.android.roomdbtest.presentation.update_note
 
+import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.android.roomdbtest.domain.model.Note
+import com.android.roomdbtest.presentation.navigation.Screens
+
+
+
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 
 @Composable
-fun UpdateNoteScreen(onSaveNote: (Note) -> Unit) {
-    var title by rememberSaveable { mutableStateOf("") }
-    var content by rememberSaveable { mutableStateOf("") }
+fun UpdateNoteScreen(
+    noteViewModel: UpdateNoteViewModel,
+    //navController: NavController
+)
+{
+    var title by remember { mutableStateOf("") }
+    var content by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -46,7 +58,16 @@ fun UpdateNoteScreen(onSaveNote: (Note) -> Unit) {
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Button(
-                    onClick = { onSaveNote.invoke(Note(title = title, content = content, )) },
+                    onClick = {
+                        if (title.isNotEmpty() && content.isNotEmpty()) {
+                            noteViewModel.addNote(note = Note(title = title, content = content))
+                        }
+                        else{
+
+                            Toast.makeText(context,"Please enter note",Toast.LENGTH_SHORT).show()
+                        }
+                     //   navController.navigate(Screens.HomeScreen.route)
+                              },
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(vertical = 12.dp)
                 ) {
