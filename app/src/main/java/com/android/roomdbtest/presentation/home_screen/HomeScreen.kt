@@ -14,14 +14,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.android.roomdbtest.domain.model.Note
+import com.android.roomdbtest.presentation.navigation.Screens
 import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
-fun HomeScreen(noteViewModel: UpdateNoteViewModel) {
+fun HomeScreen(noteViewModel: UpdateNoteViewModel,navController: NavController) {
     val notes = noteViewModel.noteList.collectAsState().value
-    NoteListScreen(notes = notes, noteViewModel =noteViewModel )
+    NoteListScreen(notes = notes, noteViewModel =noteViewModel, navController = navController )
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -29,7 +31,8 @@ fun HomeScreen(noteViewModel: UpdateNoteViewModel) {
 @Composable
 fun NoteListScreen(
     notes: List<Note>,
-    noteViewModel: UpdateNoteViewModel
+    noteViewModel: UpdateNoteViewModel,
+    navController: NavController
 ) {
     Scaffold(
         topBar = {
@@ -77,7 +80,7 @@ fun NoteListScreen(
                     }
                 }
                 FloatingActionButton(
-                    onClick = { },
+                    onClick = { navController.navigate(Screens.UpdateNoteScreen.route)},
                     modifier = Modifier.align(Alignment.End),
                     content = {
                         Icon(Icons.Filled.Add, contentDescription = "Add")

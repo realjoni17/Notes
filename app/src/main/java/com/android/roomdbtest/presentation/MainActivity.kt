@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavHost
 import com.android.roomdbtest.presentation.home_screen.HomeScreen
+import com.android.roomdbtest.presentation.navigation.NavGraph
 import com.android.roomdbtest.presentation.ui.theme.theme.RoomDbTestTheme
 import com.android.roomdbtest.presentation.update_note.UpdateNoteScreen
 import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
@@ -26,7 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                     HomeScreen(noteViewModel = noteViewModel.value)
+                    NavGraph(noteViewModel = noteViewModel.value)
                 }
             }
         }

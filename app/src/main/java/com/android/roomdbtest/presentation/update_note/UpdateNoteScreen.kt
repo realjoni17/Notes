@@ -21,7 +21,7 @@ import com.android.roomdbtest.presentation.navigation.Screens
 @Composable
 fun UpdateNoteScreen(
     noteViewModel: UpdateNoteViewModel,
-    //navController: NavController
+    navController: NavController
 )
 {
     var title by remember { mutableStateOf("") }
@@ -33,7 +33,7 @@ fun UpdateNoteScreen(
             TopAppBar(
                 title = { Text(text = "Add Note") },
                 navigationIcon = {
-                    IconButton(onClick = { /* Handle navigation icon click */ }) {
+                    IconButton(onClick = { navController.navigate(Screens.HomeScreen.route) }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "Back")
                     }
                 }
@@ -61,12 +61,13 @@ fun UpdateNoteScreen(
                     onClick = {
                         if (title.isNotEmpty() && content.isNotEmpty()) {
                             noteViewModel.addNote(note = Note(title = title, content = content))
+                            Toast.makeText(context,"Note Added",Toast.LENGTH_SHORT).show()
                         }
                         else{
 
                             Toast.makeText(context,"Please enter note",Toast.LENGTH_SHORT).show()
                         }
-                     //   navController.navigate(Screens.HomeScreen.route)
+                       navController.navigate(Screens.HomeScreen.route)
                               },
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(vertical = 12.dp)
