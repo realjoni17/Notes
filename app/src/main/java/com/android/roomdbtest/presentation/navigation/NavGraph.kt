@@ -11,6 +11,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.android.roomdbtest.domain.model.Note
 import com.android.roomdbtest.presentation.home_screen.HomeScreen
+import com.android.roomdbtest.presentation.splash_screen.Splash
+import com.android.roomdbtest.presentation.splash_screen.SplashScreen
 import com.android.roomdbtest.presentation.update_note.UpdateNoteScreen
 import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
 
@@ -18,7 +20,10 @@ import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
 fun NavGraph(navController: NavHostController = rememberNavController(),
              noteViewModel: UpdateNoteViewModel)
 {
-NavHost(navController = navController, startDestination = Screens.HomeScreen.route ){
+NavHost(navController = navController, startDestination = Screens.SplashScreen.route ){
+    composable(route = Screens.SplashScreen.route){
+        SplashScreen(navcontroller = navController)
+    }
    composable(route = Screens.HomeScreen.route){
        HomeScreen( navController =navController, noteViewModel = noteViewModel )
    }
