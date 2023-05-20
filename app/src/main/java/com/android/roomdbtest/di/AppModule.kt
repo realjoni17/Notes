@@ -10,7 +10,6 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import androidx.room.Room
 import com.android.roomdbtest.data.repository.NoteRepositoryImpl
-import com.android.roomdbtest.domain.use_cases.*
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,14 +26,4 @@ object AppModule {
         database.noteDao()
     )
 
-    @Singleton
-    @Provides
-    fun provideNoteUseCases(repository: NoteRepository): NoteUseCases {
-        return NoteUseCases(
-            getNotesUseCase = GetNoteUseCase(repository),
-            deleteNoteUseCase = DeleteNoteUseCase(repository),
-            insertNoteUseCase = InsertNoteUseCase(repository),
-            getNoteByIdUseCase = GetNoteByIdUseCase(repository)
-        )
-    }
 }
