@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import androidx.navigation.NavHost
 import com.android.roomdbtest.presentation.home_screen.HomeScreen
@@ -26,8 +28,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             RoomDbTestTheme {
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = col1)
+
                 ) {
                     NavGraph(noteViewModel = noteViewModel.value)
                 }
@@ -35,4 +39,4 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+val col1 = Color(0xFFB2A4FF)
