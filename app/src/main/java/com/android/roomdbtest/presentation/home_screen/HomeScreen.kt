@@ -1,3 +1,4 @@
+/*
 package com.android.roomdbtest.presentation.home_screen
 
 import android.annotation.SuppressLint
@@ -25,3 +26,4 @@ fun HomeScreen(noteViewModel: UpdateNoteViewModel,navController: NavController) 
     val notes = noteViewModel.noteList.collectAsState().value
     NoteListScreen(notes = notes, noteViewModel =noteViewModel, navController = navController )
 }
+*/

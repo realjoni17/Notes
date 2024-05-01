@@ -1,6 +1,8 @@
+/*
 package com.android.roomdbtest.presentation.home_screen
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -13,10 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.android.roomdbtest.R
 import com.android.roomdbtest.domain.model.Note
 import com.android.roomdbtest.presentation.col1
+import com.android.roomdbtest.presentation.home_screen.components.TopBar
 import com.android.roomdbtest.presentation.navigation.Screens
 import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
 import kotlin.random.Random
@@ -33,7 +38,7 @@ fun NoteListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Notes") }
+                title = { TopBar() }
             )
         },
         content = {
@@ -79,11 +84,13 @@ fun NoteListScreen(
                     onClick = { navController.navigate(Screens.UpdateNoteScreen.route)},
                     modifier = Modifier.align(Alignment.End),
                     content = {
-                        Icon(Icons.Filled.Add, contentDescription = "Add")
+                        Icon(painter = painterResource(id = R.drawable.add),
+                            contentDescription = "Add")
                     },
-                    backgroundColor = Color(0xFF576CBC)
+                    backgroundColor = Color.Black
                 )
             }
         }
     )
 }
+*/

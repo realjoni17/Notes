@@ -1,3 +1,4 @@
+/*
 package com.android.roomdbtest.presentation.update_note
 
 import android.util.Log
@@ -35,4 +36,4 @@ class UpdateNoteViewModel @Inject constructor(private val repository: NoteReposi
 
     fun deleteNote(note: Note) = viewModelScope.launch { repository.deleteNote(note) }
     fun getAllNotes() = viewModelScope.launch { repository.getNotes() }
-}
+}*/
