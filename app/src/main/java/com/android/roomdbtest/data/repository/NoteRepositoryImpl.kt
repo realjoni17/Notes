@@ -4,26 +4,33 @@ import com.android.roomdbtest.data.local.NoteDao
 import com.android.roomdbtest.domain.model.Note
 import com.android.roomdbtest.domain.repository.NoteRepository
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class NoteRepositoryImpl
-   (private val noteDao: NoteDao
-    ) : NoteRepository {
+class NoteRepositoryImpl @Inject constructor(
+    private val noteDao: NoteDao
+) : NoteRepository {
 
-        override fun getNotes(): Flow<List<Note>> {
-            return noteDao.getNotes()
-        }
-
-        override suspend fun getNoteById(noteId: Int): Note? {
-            return noteDao.getNoteById(noteId)
-        }
-
-        override suspend fun insertNote(note: Note) {
-            return noteDao.insertnote(note)
-        }
-
-        override suspend fun deleteNote(note: Note) {
-            return noteDao.deleteNote(note)
-        }
-
-
+    override fun getAllNotes(userId: String): Flow<List<Note>> {
+        return noteDao.getAllNotes(userId)
     }
+
+    override fun searchNotes(userId: String, query: String): Flow<List<Note>> {
+        return noteDao.searchNotes(userId, query)
+    }
+
+    override suspend fun insertNote(note: Note): Long {
+        return noteDao.insertNote(note)
+    }
+
+    override suspend fun updateNote(note: Note) {
+        noteDao.updateNote(note)
+    }
+
+    override suspend fun deleteNote(note: Note) {
+        noteDao.deleteNote(note)
+    }
+
+    override suspend fun deleteAllNotes(userId: String) {
+        noteDao.deleteAllNotes(userId)
+    }
+}

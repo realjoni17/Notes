@@ -5,16 +5,22 @@ import com.android.roomdbtest.domain.model.Note
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NoteDao{
-    @Query ("Select * FROM note")
-    fun getNotes(): Flow<List<Note>>
+interface NoteDao {
+    @Query("SELECT * FROM note WHERE userId = :userId ORDER BY timestamp DESC")
+    fun getAllNotes(userId: String): Flow<List<Note>>
 
-    @Query("Select * FROM note WHERE id = :id")
-    suspend fun getNoteById(id:Int):Note?
+    @Query("SELECT * FROM note WHERE userId = :userId AND (title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%') ORDER BY timestamp DESC")
+    fun searchNotes(userId: String, query: String): Flow<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertnote(note: Note)
+    suspend fun insertNote(note: Note): Long
+
+    @Update
+    suspend fun updateNote(note: Note)
 
     @Delete
-    suspend fun deleteNote(note:Note)
+    suspend fun deleteNote(note: Note)
+
+    @Query("DELETE FROM note WHERE userId = :userId")
+    suspend fun deleteAllNotes(userId: String)
 }

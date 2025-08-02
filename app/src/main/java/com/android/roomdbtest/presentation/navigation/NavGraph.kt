@@ -10,25 +10,55 @@ import androidx.navigation.compose.composable
 
 import androidx.navigation.compose.rememberNavController
 import com.android.roomdbtest.domain.model.Note
+import com.android.roomdbtest.presentation.auth.AuthScreen
 import com.android.roomdbtest.presentation.home_screen.HomeScreen
+import com.android.roomdbtest.presentation.home_screen.NotesScreen
 import com.android.roomdbtest.presentation.splash_screen.Splash
 import com.android.roomdbtest.presentation.splash_screen.SplashScreen
-import com.android.roomdbtest.presentation.update_note.UpdateNoteScreen
-import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
+import com.android.roomdbtest.presentation.update_note.NoteEditScreen
+
+
 
 @Composable
-fun NavGraph(navController: NavHostController = rememberNavController(),
-             noteViewModel: UpdateNoteViewModel)
-{
-NavHost(navController = navController, startDestination = Screens.SplashScreen.route ){
-    composable(route = Screens.SplashScreen.route){
-        SplashScreen(navcontroller = navController)
+fun AppNavigation(
+    navController: NavHostController = rememberNavController()
+) {
+    NavHost(
+        navController = navController,
+        startDestination = AppScreens.Auth.route
+    ) {
+        composable(AppScreens.Auth.route) {
+            AuthScreen(
+                onSignInSuccess = {
+                    navController.navigate(AppScreens.Notes.route) {
+                        popUpTo(AppScreens.Auth.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+
+        composable(AppScreens.Notes.route) {
+            NotesScreen(
+                onNoteClick = { noteId ->
+                    navController.navigate(AppScreens.NoteEdit.createRoute(noteId))
+                },
+                onAddNote = {
+                    navController.navigate(AppScreens.NoteEdit.createRoute(null))
+                }
+            )
+        }
+
+        composable(
+            route = AppScreens.NoteEdit.route,
+            arguments = AppScreens.NoteEdit.arguments
+        ) { backStackEntry ->
+            val noteId = backStackEntry.arguments?.getString("noteId")?.toLongOrNull()
+            NoteEditScreen(
+                noteId = noteId,
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
     }
-   composable(route = Screens.HomeScreen.route){
-       HomeScreen( navController =navController, noteViewModel = noteViewModel )
-   }
-   composable(route = Screens.UpdateNoteScreen.route){
-      UpdateNoteScreen(noteViewModel = noteViewModel, navController =navController )
-   }
-}
 }

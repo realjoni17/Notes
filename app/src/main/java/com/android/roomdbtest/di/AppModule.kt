@@ -9,7 +9,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 import androidx.room.Room
+import com.android.roomdbtest.auth.AuthService
+import com.android.roomdbtest.auth.FirebaseAuthService
 import com.android.roomdbtest.data.repository.NoteRepositoryImpl
+import com.google.firebase.auth.FirebaseAuth
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,5 +28,15 @@ object AppModule {
     fun provideNoteRepository(database: NoteDatabase): NoteRepository = NoteRepositoryImpl(
         database.noteDao()
     )
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth() : FirebaseAuth{
+        return FirebaseAuth.getInstance()
+    }
+
+    fun provideAuthService(firebaseAuthService : FirebaseAuthService) : AuthService{
+        return firebaseAuthService
+
+    }
 
 }

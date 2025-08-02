@@ -1,89 +1,141 @@
 package com.android.roomdbtest.presentation.home_screen
 
-import android.annotation.SuppressLint
+
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.android.roomdbtest.domain.model.Note
-import com.android.roomdbtest.presentation.col1
-import com.android.roomdbtest.presentation.navigation.Screens
-import com.android.roomdbtest.presentation.update_note.UpdateNoteViewModel
-import kotlin.random.Random
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.android.roomdbtest.presentation.components.NoteCard
+import com.android.roomdbtest.presentation.components.SearchBar
+import com.android.roomdbtest.presentation.ui.theme.theme.NotesTheme
 
 
-@OptIn(ExperimentalMaterialApi::class)
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteListScreen(
-    notes: List<Note>,
-    noteViewModel: UpdateNoteViewModel,
-    navController: NavController
+fun NotesScreen(
+    modifier: Modifier = Modifier,
+    onNoteClick: (Long) -> Unit = {},
+    onAddNote: () -> Unit = {},
+    viewModel: NotesViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+    val searchQuery by viewModel.searchQuery.collectAsState()
+
     Scaffold(
+        modifier = modifier.fillMaxSize(),
         topBar = {
             TopAppBar(
-                title = { Text(text = "Notes") }
+                title = {
+                    Text(
+                        text = "My Notes",
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color.Transparent
+                )
             )
         },
-        content = {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxSize()
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onAddNote,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary
             ) {
-                LazyColumn(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    items(notes) { note ->
-                        Card(
-                            modifier = Modifier
-                                .padding(8.dp)
-                                .fillMaxWidth(),
-                            elevation = 8.dp,
-                            shape = RoundedCornerShape(16.dp),
-                            onClick = {  }
-                        ) {
-                            Column(
-                                modifier = Modifier.padding(16.dp)
-                            ) {
-                                Text(text = note.title, style = MaterialTheme.typography.h6)
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Text(text = note.content, style = MaterialTheme.typography.body2)
-                                Spacer(modifier = Modifier.height(8.dp))
-                                Row(
-                                    modifier = Modifier.fillMaxWidth(),
-                                    horizontalArrangement = Arrangement.End
-                                ) {
-                                    IconButton(
-                                        onClick = { noteViewModel.deleteNote(note = note) }
-                                    ) {
-                                        Icon(Icons.Filled.Delete, contentDescription = "Delete")
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                FloatingActionButton(
-                    onClick = { navController.navigate(Screens.UpdateNoteScreen.route)},
-                    modifier = Modifier.align(Alignment.End),
-                    content = {
-                        Icon(Icons.Filled.Add, contentDescription = "Add")
-                    },
-                    backgroundColor = Color(0xFF576CBC)
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Note"
                 )
             }
         }
-    )
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(horizontal = 16.dp)
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+
+            SearchBar(
+                query = searchQuery,
+                onQueryChange = { viewModel.onSearchQueryChange(it) },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            if (uiState.isLoading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else if (uiState.notes.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = "No notes yet",
+                            fontSize = 18.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "Tap the + button to create your first note",
+                            fontSize = 14.sp,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                }
+            } else {
+                LazyVerticalGrid(
+                    columns = GridCells.Fixed(2),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    items(uiState.notes) { note ->
+                        NoteCard(
+                            note = note,
+                            onClick = { onNoteClick(note.id.toInt()) }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NotesScreenPreview() {
+    NotesTheme {
+        NotesScreen()
+    }
 }
