@@ -13,4 +13,5 @@ interface NoteRepository {
     suspend fun updateNote(note: Note)
     suspend fun deleteNote(note: Note)
     suspend fun deleteAllNotes(userId: String)
+    suspend fun syncNotesFromFirebase(userId: String)
 }

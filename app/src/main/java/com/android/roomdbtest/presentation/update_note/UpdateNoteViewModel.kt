@@ -25,7 +25,7 @@ class NoteEditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-  private val noteId: Long? = savedStateHandle["noteId"]?.toLongOrNull()
+ // private val noteId: Long? = savedStateHandle["noteId"]?.toLongOrNull()
 
     private val _uiState = MutableStateFlow(NoteEditUiState())
     val uiState: StateFlow<NoteEditUiState> = _uiState.asStateFlow()
@@ -40,7 +40,7 @@ class NoteEditViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(content = content)
     }
 
-    fun loadNote(id: Long) {
+    fun loadNote(id: String) {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(isLoading = true)
 
@@ -51,7 +51,7 @@ class NoteEditViewModel @Inject constructor(
 
                 // Mock note data
                 currentNote = Note(
-                    userId = id.toInt(),
+                    userId = id,
                     title = "Sample Note",
                     content = "This is a sample note content that was loaded from the database.",
                     timestamp = java.util.Date()

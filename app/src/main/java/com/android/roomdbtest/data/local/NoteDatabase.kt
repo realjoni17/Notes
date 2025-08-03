@@ -11,7 +11,7 @@ import com.android.roomdbtest.domain.model.Note
 
 @Database(
     entities = [Note::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(DateConverter::class)

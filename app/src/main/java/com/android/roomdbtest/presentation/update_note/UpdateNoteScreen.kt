@@ -29,7 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteEditScreen(
-    noteId: Long? = null,
+    noteId: String? = null,
     onNavigateBack: () -> Unit,
     viewModel: NoteEditViewModel = hiltViewModel()
 ) {
@@ -84,7 +84,7 @@ fun NoteEditScreen(
                         onClick = { viewModel.saveNote() }
                     ) {
                         Icon(
-                            imageVector = Icons.Default.Save,
+                            imageVector = Icons.Default.Delete,
                             contentDescription = "Save"
                         )
                     }
@@ -183,7 +183,7 @@ fun NoteEditScreen(
             Snackbar(
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text(uiState.error)
+                Text(uiState.error!!)
             }
         }
     }

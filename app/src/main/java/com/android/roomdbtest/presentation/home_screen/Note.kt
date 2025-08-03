@@ -123,7 +123,7 @@ fun NotesScreen(
                     items(uiState.notes) { note ->
                         NoteCard(
                             note = note,
-                            onClick = { onNoteClick(note.id.toInt()) }
+                            onClick = {onNoteClick(note.localId.toLong())}
                         )
                     }
                 }

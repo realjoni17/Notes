@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface NoteDao {
-    @Query("SELECT * FROM note WHERE userId = :userId ORDER BY timestamp DESC")
+    @Query("SELECT * FROM note WHERE userId = :userId")
     fun getAllNotes(userId: String): Flow<List<Note>>
 
     @Query("SELECT * FROM note WHERE userId = :userId AND (title LIKE '%' || :query || '%' OR content LIKE '%' || :query || '%') ORDER BY timestamp DESC")
