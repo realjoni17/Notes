@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Notes</string>
+    <string name="google_drive_client_id">117159446439225944858</string>
 </resources>
