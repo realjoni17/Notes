@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -52,7 +53,14 @@ fun NotesScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent
-                )
+                ),
+                actions = {
+                    IconButton(onClick = { viewModel.exportNotesToDrive() }) {
+                        Icon(Icons.Default.Add, contentDescription = "Export to Drive")
+                    }
+                    IconButton(onClick = { viewModel.importNotesFromDrive() }) {
+                        Icon(Icons.Default.CheckCircle, contentDescription = "Import from Drive")}
+                }
             )
         },
         floatingActionButton = {

@@ -1,35 +1,58 @@
+# 📝 Notes App
 
-<p align="center"><img src="/Assests/banner.png"></p>
+A modern, full-featured notes application built with **Jetpack Compose**, **Room**, **Firebase Authentication**, and **Google Drive** integration. It supports local note management and cloud backup/restore via Google Drive's `appDataFolder`.
 
-Notes
-=================
-The Note Application is a versatile and feature-rich digital notebook designed to revolutionize the way you capture, organize, and access your ideas, thoughts, and important information. With its intuitive interface and powerful functionality, it provides a seamless and efficient note-taking experience for users across various platforms and devices.
+---
 
-Architecture
------
-  <img src="/Assests/clean2.png" width="700" height="679" />
+## 🚀 Features
 
-Preview
------
-|          Splash Screen           |           Note Screen            |         Add Note Screen          |
-|:--------------------------------:|:--------------------------------:|:--------------------------------:|
-| <img src ="/Assests/Notes3.jpg"> | <img src ="/Assests/Notes1.jpg"> | <img src ="/Assests/Notes2.jpg"> |
+- ✅ Google Sign-In (Firebase Authentication)
+- 🗒️ Create, view, search, and delete notes locally (Room DB)
+- ☁️ Backup and restore notes to/from **Google Drive**
+- 🔁 Real-time updates using Kotlin Flows
+- 🧼 Clean Architecture with Use Cases and Hilt DI
+- 📱 Beautiful UI with Jetpack Compose
 
-Demo
------
-<p align="center">
-<img src ="/Assests/Notesgif.gif">
+---
 
-Libraries & Tech Stack
------
+## 🧱 Tech Stack
 
-* Language: [Kotlin](https://kotlinlang.org)
-* Asynchronous: [Flow](https://kotlinlang.org/docs/flow.html)
-* Dependencies Injection: [Hilt](https://developer.android.com/training/dependency-injection/hilt-android)
-* [Android Jetpack](https://developer.android.com/jetpack):
-    * UI: [Compose](https://developer.android.com/jetpack/compose)
-    * Lifecycle: [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-    * Navigation: [Navigation](https://developer.android.com/guide/navigation)
-    * Database: [Room](https://developer.android.com/training/data-storage/room)
-* Load Images: [Coil](https://coil-kt.github.io/coil/compose/)
+| Layer              | Tech                         |
+|-------------------|------------------------------|
+| Language           | Kotlin                       |
+| UI Framework       | Jetpack Compose              |
+| DI                 | Hilt + KSP                   |
+| Local DB           | Room 2.6.1                   |
+| Auth               | Firebase Auth (Google)       |
+| Cloud Storage      | Google Drive API             |
+| Async              | Coroutines + Flows           |
+| Gradle Tools       | KSP                          |
+| Java Version       | 17                           |
+| Min SDK            | 24 (Android 7.0)             |
+| Target SDK         | 34 (Android 14)              |
+
+---
+
+---
+
+## ⚙️ Setup Instructions
+
+### ✅ Prerequisites
+
+- Android Studio **Koala** or later
+- JDK 17
+- Firebase project (Auth enabled)
+- Google Cloud project (Drive API + OAuth client)
+- Device/Emulator with **API 24+**
+
+---
+
+### 🔧 Installation
+
+#### 1. Clone the Repo
+
+```bash
+git clone https://github.com/realjoni17/notes.git
+cd notes
+
 

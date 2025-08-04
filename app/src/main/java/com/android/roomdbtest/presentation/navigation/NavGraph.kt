@@ -44,8 +44,9 @@ fun AppNavigation(
         isSignedIn = authService.isUserSignedIn()
         isCheckingAuth = false
     }
-
-
+    if (isCheckingAuth) {
+        CircularProgressIndicator()
+    } else {
 
 
         NavHost(
@@ -87,5 +88,6 @@ fun AppNavigation(
             }
         }
     }
+}
 
 

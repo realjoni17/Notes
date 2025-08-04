@@ -3,7 +3,9 @@ package com.android.roomdbtest.domain.repository
 import com.android.roomdbtest.data.local.NoteDao
 import com.android.roomdbtest.data.local.NoteDatabase
 import com.android.roomdbtest.domain.model.Note
+import com.google.api.services.drive.Drive
 import kotlinx.coroutines.flow.Flow
+import kotlin.Result
 
 
 interface NoteRepository {
@@ -14,4 +16,6 @@ interface NoteRepository {
     suspend fun deleteNote(note: Note)
     suspend fun deleteAllNotes(userId: String)
     suspend fun syncNotesFromFirebase(userId: String)
+    suspend fun exportNotesToDrive(userId: String, driveService: Drive): Result<Unit>
+    suspend fun importNotesFromDrive(userId: String, driveService: Drive): Result<Unit>
 }

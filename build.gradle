@@ -2,7 +2,8 @@ buildscript {
     ext {
         compose_ui_version = '1.5.7'
          nav_version = "2.5.3"
-        room_version = "2.6.1"
+        room_version = "2.6.1" //2.6.1
+        ksp_version = '1.9.22-1.0.13'
     }
 }// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -11,6 +12,7 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.9.21' apply false
     id 'com.google.dagger.hilt.android' version '2.50' apply false
     id 'com.google.gms.google-services' version '4.4.3' apply false
-
+   // id 'com.google.devtools.ksp' version '2.0.21-1.0.27' apply false
 
 }
+

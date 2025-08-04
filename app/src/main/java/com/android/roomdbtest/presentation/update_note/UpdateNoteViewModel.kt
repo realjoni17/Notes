@@ -54,7 +54,7 @@ class NoteEditViewModel @Inject constructor(
                     userId = id,
                     title = "Sample Note",
                     content = "This is a sample note content that was loaded from the database.",
-                    timestamp = java.util.Date()
+                    timestamp = java.util.Date().time
                 )
 
                 _uiState.value = _uiState.value.copy(
@@ -101,7 +101,7 @@ class NoteEditViewModel @Inject constructor(
                     val updatedNote = currentNote!!.copy(
                         title = title,
                         content = content,
-                        timestamp = java.util.Date()
+                        timestamp = java.util.Date().time
                     )
                     updateNoteUseCase(updatedNote)
                 } else {
