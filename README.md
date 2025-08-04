@@ -32,6 +32,10 @@ A modern, full-featured notes application built with **Jetpack Compose**, **Room
 | Target SDK         | 34 (Android 14)              |
 
 ---
+##Screenshot
+![screenshot 1](Assests/first.jpg)
+![screenshot 2](Assests/second.jpg)
+![screenshot 3](Assests/third.jpg)
 
 ---
 

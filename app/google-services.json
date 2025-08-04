@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410577623571",
+    "project_id": "notes-assignment13",
+    "storage_bucket": "notes-assignment13.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410577623571:android:83c466c8f85fc2793a3de6",
+        "android_client_info": {
+          "package_name": "com.android.roomdbtest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuNAPYqYutQKO4UuoTm7tVJkVYsrhp_a8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
